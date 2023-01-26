@@ -7,6 +7,7 @@ const { database } = require('./database/Database');
 const userController = require('./controllers/User.controller');
 const bookController = require('./controllers/Book.controller');
 
+
 // Configuração do servidor
 const app = express();
 app.use(cors());
