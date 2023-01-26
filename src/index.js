@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Configuração das rotas
 app.use(userController);
 app.use(bookController);
