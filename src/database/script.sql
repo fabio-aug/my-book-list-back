@@ -46,5 +46,5 @@ CREATE TABLE IF NOT EXISTS Friendship (
 
 	PRIMARY KEY (idUser1, idUser2),
 	FOREIGN KEY (idUser1) REFERENCES User (idUser),
-	FREIGN KEY (idUser2) REFERENCES User (idUser)
+	FOREIGN KEY (idUser2) REFERENCES User (idUser)
 );
