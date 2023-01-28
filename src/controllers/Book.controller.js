@@ -7,7 +7,17 @@ bookController.get('/book/getById', (req, res, next) => {
     bookService.getBookById(parseInt(req.query.id)).then((response) => {
         res.send(response);
     }).catch((error) => {
-        console.error("Erro ao buscar livro.");
+        console.error("Erro ao obter dados do livro.");
+        next(error);
+    });
+});
+
+bookController.get('/book/searchBook', (req, res, next) => {
+    const query = req.query;
+    bookService.searchBook(query.term, query.page, query.itens).then((response) => {
+        res.send(response);
+    }).catch((error) => {
+        console.error("Erro ao buscar livros.");
         next(error);
     });
 });
