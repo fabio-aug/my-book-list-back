@@ -6,7 +6,14 @@ async function createUser(dto) {
 }
 
 async function getUserById(id) {
-    const user = await userModel.findByPk(parseInt(id));
+    const user = await userModel.findOne({
+        attributes: {
+            exclude: ['password']
+        },
+        where: {
+            idUser: parseInt(id)
+        }
+    });
     return user;
 }
 
