@@ -5,8 +5,11 @@ const cors = require('cors');
 
 // Local
 const { database } = require('./database/Database');
-const userController = require('./controllers/User.controller');
-const bookController = require('./controllers/Book.controller');
+const {
+    userController,
+    bookController,
+    favoriteController
+} = require('./controllers/index');
 
 
 // Configuração do servidor
@@ -19,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configuração das rotas
 app.use(userController);
 app.use(bookController);
+app.use(favoriteController);
 
 
 // Conectar com banco de dados

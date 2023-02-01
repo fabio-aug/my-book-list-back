@@ -48,3 +48,11 @@ CREATE TABLE IF NOT EXISTS Friendship (
 	FOREIGN KEY (idUser1) REFERENCES User (idUser),
 	FOREIGN KEY (idUser2) REFERENCES User (idUser)
 );
+
+CREATE TABLE IF NOT EXISTS Favorite (
+	idUser INT NOT NULL,
+    idBook INT NOT NULL,
+    PRIMARY KEY (idUser, idBook),
+    FOREIGN KEY (idUser) REFERENCES User (idUser),
+    FOREIGN KEY (idBook) REFERENCES Book (idBook)
+);
