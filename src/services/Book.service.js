@@ -31,7 +31,19 @@ async function searchBook(term = '', page, amoutItems) {
     };
 }
 
+async function getLastBooks(amoutItems){ 
+    amoutItems = parseInt(amoutItems); 
+    const data = await bookModel.findAll({
+        limit: amoutItems,
+        order:[
+            ['idBook', 'DESC']
+        ] 
+    });
+    return {bookList: data};
+}
+
 module.exports = {
     getBookById,
-    searchBook
+    searchBook,
+    getLastBooks
 }

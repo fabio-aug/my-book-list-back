@@ -22,4 +22,13 @@ bookController.get('/book/searchBook', (req, res, next) => {
     });
 });
 
+bookController.get('/book/getLastBooks', (req, res, next) => {
+    bookService.getLastBooks(req.query.itens).then((response) => {
+        res.send(response);
+    }).catch((error) => {
+        console.error("Erro ao buscar livros.");
+        next(error);
+    });
+});
+
 module.exports = bookController;
