@@ -8,7 +8,7 @@ friendshipController.get('/friendship/searchUserFriendship', (req, res, next) =>
     friendshipService.searchUserFriendship(query.idUser, query.page, query.itens).then((response) => {
         res.send(response);
     }).catch((error) => {
-        console.error("Erro ao buscar livros.");
+        console.error('Erro ao buscar livros.');
         next(error);
     });
 });
