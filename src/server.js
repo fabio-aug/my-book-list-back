@@ -8,7 +8,8 @@ const { database } = require('./database/Database');
 const {
     userController,
     bookController,
-    favoriteController
+    favoriteController,
+    friendshipController
 } = require('./controllers/index');
 
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(userController);
 app.use(bookController);
 app.use(favoriteController);
+app.use(friendshipController);
 
 
 // Conectar com banco de dados

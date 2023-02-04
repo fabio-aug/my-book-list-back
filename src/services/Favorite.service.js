@@ -10,7 +10,7 @@ async function getFavoritesListByIdUser(idUser) {
     const favoritesList = await favoriteModel.findAll({
         include: {
             model: bookModel,
-          },
+        },
         where: {
             idUser: parseInt(idUser)
         }
