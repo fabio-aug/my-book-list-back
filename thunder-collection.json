@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "endpoints",
-    "dateExported": "2023-01-28T14:38:55.414Z",
+    "dateExported": "2023-02-04T14:25:27.741Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -118,6 +118,56 @@
                 {
                     "name": "term",
                     "value": "name",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "itens",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "60e74d99-cfe6-4168-8778-7d8effc105ed",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "favorite - getFavoritesListByIdUser",
+            "url": "localhost:44390/favorite/getFavoritesListByIdUser?idUser=5",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-02-01T16:10:46.214Z",
+            "modified": "2023-02-01T16:11:57.637Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "idUser",
+                    "value": "5",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "c8826764-fc50-44b7-9347-9535f1027901",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "friendship - searchUserFriendship",
+            "url": "localhost:44390/friendship/searchUserFriendship?idUser=4&page=1&itens=10",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-02-04T10:21:38.208Z",
+            "modified": "2023-02-04T14:25:15.806Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "idUser",
+                    "value": "4",
                     "isPath": false
                 },
                 {
