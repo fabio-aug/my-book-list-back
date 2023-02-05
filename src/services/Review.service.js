@@ -7,9 +7,7 @@ async function getMostReviewed(amoutItems) {
     amoutItems = parseInt(amoutItems); 
     const data = await reviewModel.findAll({
         limit: amoutItems,
-        order:[
-            ['idBook', 'DESC']
-        ] 
+        group: ['idBook']
     });
     return {bookList: data};
 }
