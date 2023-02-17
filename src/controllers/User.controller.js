@@ -3,6 +3,15 @@ const userService = require('./../services/User.service');
 
 const userController = express.Router();
 
+userController.post('/user/login', (req, res, next) => {
+    userService.login(req.body).then((response) => {
+        res.send(response);
+    }).catch((error) => {
+        console.error('Erro ao logar usuário.');
+        next(error);
+    });
+});
+
 userController.post('/user/create', (req, res, next) => {
     userService.createUser(req.body).then((response) => {
         res.send(response);
