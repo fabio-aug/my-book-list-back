@@ -4,6 +4,8 @@ const bookService = require('./../services/Book.service');
 const bookController = express.Router();
 
 bookController.get('/book/getById', (req, res, next) => {
+    // #swagger.tags = ['book']
+
     bookService.getBookById(parseInt(req.query.id)).then((response) => {
         res.send(response);
     }).catch((error) => {
@@ -13,6 +15,8 @@ bookController.get('/book/getById', (req, res, next) => {
 });
 
 bookController.get('/book/searchBook', (req, res, next) => {
+    // #swagger.tags = ['book']
+    
     const query = req.query;
     bookService.searchBook(query.term, query.page, query.itens).then((response) => {
         res.send(response);

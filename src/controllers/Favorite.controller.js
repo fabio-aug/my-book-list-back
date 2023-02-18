@@ -4,6 +4,8 @@ const favoriteService = require('./../services/Favorite.service');
 const favoriteController = express.Router();
 
 favoriteController.post('/favorite/create', (req, res, next) => {
+    // #swagger.tags = ['favorite']
+    
     favoriteService.createFavorite(req.body).then((response) => {
         res.send(response);
     }).catch((error) => {
@@ -13,6 +15,8 @@ favoriteController.post('/favorite/create', (req, res, next) => {
 });
 
 favoriteController.get('/favorite/getFavoritesListByIdUser', (req, res, next) => {
+    // #swagger.tags = ['favorite']
+    
     favoriteService.getFavoritesListByIdUser(req.query.idUser).then((response) => {
         res.send(response);
     }).catch((error) => {
@@ -22,6 +26,8 @@ favoriteController.get('/favorite/getFavoritesListByIdUser', (req, res, next) =>
 });
 
 favoriteController.delete('/favorite/delete', (req, res, next) => {
+    // #swagger.tags = ['favorite']
+    
     const { idUser, idBook } = req.query;
     favoriteService.deleteUser(idUser, idBook).then((response) => {
         res.send('Sucesso!');
