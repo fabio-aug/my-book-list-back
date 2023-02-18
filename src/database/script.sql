@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS User (
 	phone VARCHAR(30) NOT NULL,
 	password VARCHAR(20) NOT NULL,
 
-	PRIMARY KEY (idUser)
+	PRIMARY KEY (idUser, email)
 );
 
 CREATE TABLE IF NOT EXISTS Book (
@@ -47,4 +47,12 @@ CREATE TABLE IF NOT EXISTS Friendship (
 	PRIMARY KEY (idUser1, idUser2),
 	FOREIGN KEY (idUser1) REFERENCES User (idUser),
 	FOREIGN KEY (idUser2) REFERENCES User (idUser)
+);
+
+CREATE TABLE IF NOT EXISTS Favorite (
+	idUser INT NOT NULL,
+    idBook INT NOT NULL,
+    PRIMARY KEY (idUser, idBook),
+    FOREIGN KEY (idUser) REFERENCES User (idUser),
+    FOREIGN KEY (idBook) REFERENCES Book (idBook)
 );
