@@ -1,10 +1,12 @@
 // Libs
-const express = require('express');
 const cors = require('cors');
+const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 
 
 // Local
 const { database } = require('./database/Database');
+const swaggerFile = require('./swagger/swagger_doc.json');
 const {
     userController,
     bookController,
@@ -19,6 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 // Configuração das rotas
