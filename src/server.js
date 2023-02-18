@@ -6,7 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 
 // Local
 const { database } = require('./database/Database');
-const swaggerFile = require('./swagger/swagger_doc.json');
+const swaggerFile = require('./doc/swagger_doc.json');
 const {
     userController,
     bookController,
@@ -41,7 +41,7 @@ database.authenticate().then(() => {
 
 
 // Inicialização do servidor
-const port = 44390;
+const port = 3001;
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}.`);
 });
