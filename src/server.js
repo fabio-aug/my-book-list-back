@@ -9,7 +9,8 @@ const {
     userController,
     bookController,
     favoriteController,
-    friendshipController
+    friendshipController,
+    reviewController
 } = require('./controllers/index');
 
 
@@ -25,6 +26,7 @@ app.use(userController);
 app.use(bookController);
 app.use(favoriteController);
 app.use(friendshipController);
+app.use(reviewController);
 
 
 // Conectar com banco de dados
