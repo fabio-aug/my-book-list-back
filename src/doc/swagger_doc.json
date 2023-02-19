@@ -130,20 +130,23 @@
           {
             "name": "idUser",
             "description": "Id do usuário a buscar as amizades.",
-            "in": "query",
-            "type": "string"
+            "required": true,
+            "type": "integer",
+            "in": "query"
           },
           {
             "name": "page",
             "description": "Página de itens.",
-            "in": "query",
-            "type": "string"
+            "required": true,
+            "type": "integer",
+            "in": "query"
           },
           {
             "name": "itens",
             "description": "Quantidade de itens a buscar.",
-            "in": "query",
-            "type": "string"
+            "required": true,
+            "type": "integer",
+            "in": "query"
           }
         ],
         "responses": {
@@ -303,6 +306,7 @@
           {
             "name": "login",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
@@ -407,6 +411,7 @@
           {
             "name": "create",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
@@ -534,9 +539,10 @@
         "parameters": [
           {
             "name": "id",
+            "required": true,
+            "type": "integer",
             "description": "Id do usuário a ser buscado.",
-            "in": "query",
-            "type": "string"
+            "in": "query"
           }
         ],
         "responses": {
@@ -628,6 +634,7 @@
           {
             "name": "update",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
@@ -759,9 +766,10 @@
         "parameters": [
           {
             "name": "id",
+            "required": true,
+            "type": "integer",
             "description": "Id do usuário a ser deletado.",
-            "in": "query",
-            "type": "string"
+            "in": "query"
           }
         ],
         "responses": {

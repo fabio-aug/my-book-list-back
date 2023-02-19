@@ -10,6 +10,7 @@ userController.post('/user/login', (req, res, next) => {
 
     /*  #swagger.parameters['login'] = {
         in: 'body',
+        required: true,
         schema: {
             email: 'example@example.example',
             password: 'password'
@@ -57,6 +58,7 @@ userController.post('/user/create', (req, res, next) => {
 
     /*  #swagger.parameters['create'] = {
         in: 'body',
+        required: true,
         schema: {
             photo: 'base64 ou null',
             nickname: 'apelido ou null',
@@ -109,6 +111,8 @@ userController.get('/user/getById', (req, res, next) => {
     // #swagger.description = 'Buscar usuário pelo ID.'
 
     /* #swagger.parameters['id'] = {
+        required: true,
+        type: 'integer',
         description: 'Id do usuário a ser buscado.'
     } */
 
@@ -153,6 +157,7 @@ userController.put('/user/update', (req, res, next) => {
 
     /*  #swagger.parameters['update'] = {
         in: 'body',
+        required: true,
         schema: {
             idUser: 0,
             photo: 'base64 ou null',
@@ -206,6 +211,8 @@ userController.delete('/user/delete', (req, res, next) => {
     // #swagger.description = 'Login de usuário.'
 
     /* #swagger.parameters['id'] = {
+        required: true,
+        type: 'integer',
         description: 'Id do usuário a ser deletado.'
     } */
 
