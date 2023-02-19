@@ -1,10 +1,12 @@
 // Libs
-const express = require('express');
 const cors = require('cors');
+const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 
 
 // Local
 const { database } = require('./database/Database');
+const swaggerFile = require('./doc/swagger_doc.json');
 const {
     userController,
     bookController,
@@ -19,6 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 // Configuração das rotas
@@ -38,7 +41,7 @@ database.authenticate().then(() => {
 
 
 // Inicialização do servidor
-const port = 44390;
+const port = 3001;
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}.`);
 });

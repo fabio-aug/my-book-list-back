@@ -1,0 +1,810 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My Book List RestAPI",
+    "description": "Livros e Listas para todos os gostos!"
+  },
+  "host": "localhost:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/book/getById": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/book/searchBook": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "itens",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/favorite/create": {
+      "post": {
+        "tags": [
+          "favorite"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/favorite/getFavoritesListByIdUser": {
+      "get": {
+        "tags": [
+          "favorite"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/favorite/delete": {
+      "delete": {
+        "tags": [
+          "favorite"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "idBook",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/friendship/searchUserFriendship": {
+      "get": {
+        "tags": [
+          "friendship"
+        ],
+        "description": "Buscar de amizades do usuário.",
+        "parameters": [
+          {
+            "name": "idUser",
+            "description": "Id do usuário a buscar as amizades.",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "Página de itens.",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "itens",
+            "description": "Quantidade de itens a buscar.",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "friendshipList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idUser1": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "idUser2": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "dateOfFriendship": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd 00:00:00.000"
+                          },
+                          "friend": {
+                            "type": "object",
+                            "properties": {
+                              "idUser": {
+                                "type": "number",
+                                "example": 0
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "name"
+                              },
+                              "nickname": {
+                                "type": "string",
+                                "example": "nickname"
+                              },
+                              "photo": {
+                                "type": "string",
+                                "example": "base64 or null"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pageCount": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
+    "/review/create": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/review/getReviewsByIdUser": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/review/delete": {
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "idBook",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Login de usuário.",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "example@example.example"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "base64 ou null"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "apelido ou null"
+                    },
+                    "nationality": {
+                      "type": "string",
+                      "example": "nacionalidade"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nome"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "E-mail"
+                    },
+                    "phone": {
+                      "type": "number",
+                      "example": 31910101010
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "null"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Cadastro de usuário.",
+        "parameters": [
+          {
+            "name": "create",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "photo": {
+                  "type": "string",
+                  "example": "base64 ou null"
+                },
+                "nickname": {
+                  "type": "string",
+                  "example": "apelido ou null"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "nacionalidade"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "nome"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "yyyy-MM-dd"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.email"
+                },
+                "phone": {
+                  "type": "number",
+                  "example": 11111111111
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucessso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "base64 ou null"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "apelido ou null"
+                    },
+                    "nationality": {
+                      "type": "string",
+                      "example": "nacionalidade"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nome"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "E-mail"
+                    },
+                    "phone": {
+                      "type": "number",
+                      "example": 31910101010
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "null"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/getById": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "Buscar usuário pelo ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Id do usuário a ser buscado.",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "base64 ou null"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "apelido ou null"
+                    },
+                    "nationality": {
+                      "type": "string",
+                      "example": "nacionalidade"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nome"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "E-mail"
+                    },
+                    "phone": {
+                      "type": "number",
+                      "example": 31910101010
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "null"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "description": "Login de usuário.",
+        "parameters": [
+          {
+            "name": "update",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUser": {
+                  "type": "number",
+                  "example": 0
+                },
+                "photo": {
+                  "type": "string",
+                  "example": "base64 ou null"
+                },
+                "nickname": {
+                  "type": "string",
+                  "example": "apelido ou null"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "nacionalidade"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "nome"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "yyyy-MM-dd"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.email"
+                },
+                "phone": {
+                  "type": "number",
+                  "example": 11111111111
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "base64 ou null"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "apelido ou null"
+                    },
+                    "nationality": {
+                      "type": "string",
+                      "example": "nacionalidade"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nome"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "E-mail"
+                    },
+                    "phone": {
+                      "type": "number",
+                      "example": 31910101010
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "null"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "description": "Login de usuário.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Id do usuário a ser deletado.",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "Usuário deletado com sucesso."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    }
+  }
+}

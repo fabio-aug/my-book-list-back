@@ -3,7 +3,10 @@ const reviewService = require('./../services/Review.service');
 
 const reviewController = express.Router();
 
+
 reviewController.get('/review/getMostReviewed', (req, res, next) => {
+    // #swagger.tags = ['review']
+    
     reviewService.getMostReviewed(req.query.itens).then((response) => {
         res.send(response);
     }).catch((error) => {
@@ -13,6 +16,8 @@ reviewController.get('/review/getMostReviewed', (req, res, next) => {
 });
 
 reviewController.get('/review/getBestReviewed', (req, res, next) => {
+    // #swagger.tags = ['review']
+
     reviewService.getBestReviewed(req.query.itens).then((response) => {
         res.send(response);
     }).catch((error) => {
