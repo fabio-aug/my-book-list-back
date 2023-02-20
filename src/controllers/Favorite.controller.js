@@ -7,8 +7,8 @@ favoriteController.post('/favorite/create', (req, res, next) => {
 
     // #swagger.tags = ['favorite']
     // #swagger.description = 'Criar novo livro favorito do usuário.'
-    // #swagger.parameters['idUser'] = {in:'body', description: 'Id do usuário a favoritar o livro.' }
-    // #swagger.parameters['idBook'] = {in:'body', description: 'Id do livro a ser favoritado.' }
+    // #swagger.parameters['idUser'] = {in:'body', description: 'Id do usuário a favoritar o livro.', type: 'integer'}
+    // #swagger.parameters['idBook'] = {in:'body', description: 'Id do livro a ser favoritado.', type: 'integer' }
 
     favoriteService.createFavorite(req.body).then((response) => {
         res.send(response);
@@ -41,7 +41,7 @@ favoriteController.get('/favorite/getFavoritesListByIdUser', (req, res, next) =>
 
     // #swagger.tags = ['favorite']
     // #swagger.description = 'Listar livros favoritos do usuário.'
-    // #swagger.parameters['idUser'] = { description: 'Id do usuário a ter seus favoritos listados.' }
+    // #swagger.parameters['idUser'] = { description: 'Id do usuário a ter seus favoritos listados.', type: 'integer' }
 
     favoriteService.getFavoritesListByIdUser(req.query.idUser).then((response) => {
         res.send(response);
@@ -85,8 +85,8 @@ favoriteController.delete('/favorite/delete', (req, res, next) => {
 
     // #swagger.tags = ['favorite']
     // #swagger.description = 'Remoção de livro como favorito do usuário.'
-    // #swagger.parameters['idUser'] = {description: 'Id do usuário a ter o livro retirado dos seus favoritos.'}
-    // #swagger.parameters['idBook'] = {description: 'Id do livro a ser removido dos favoritos do usuário.' }
+    // #swagger.parameters['idUser'] = {description: 'Id do usuário a ter o livro retirado dos seus favoritos.', type: 'integer'}
+    // #swagger.parameters['idBook'] = {description: 'Id do livro a ser removido dos favoritos do usuário.', type: 'integer' }
 
     const { idUser, idBook } = req.query;
     favoriteService.deleteFavorite(idUser, idBook).then((response) => {
