@@ -1,35 +1,29 @@
-const bookModel = require('./../models/Book.model');
+const { Op } = require('sequelize');
 const reviewModel = require('./../models/Review.model');
+const bookModel = require('./../models/Book.model');
 
-async function createReview(reviewDto) {
-    const review = await reviewModel.create(reviewDto);
-    return review;
+
+async function getMostReviewed(amoutItems) {
+    amoutItems = parseInt(amoutItems); 
+    const data = await reviewModel.findAll({
+        limit: amoutItems,
+        group: ['idBook']
+    });
+    return {bookList: data};
 }
 
-async function getReviewsByIdUser(idUser) {
-    const reviewsList = await reviewModel.findAll({
-        include: {
-            model: bookModel,
-        },
-        where: {
-            idUser: parseInt(idUser)
-        }
+async function getBestReviewed(amoutItems){
+    amoutItems = parseInt(amoutItems); 
+    const data = await reviewModel.findAll({
+        limit: amoutItems,
+        order:[
+            ['score', 'DESC']
+        ] 
     });
-    return reviewsList;
-}
-
-async function deleteReview(idUser, idBook) {
-    const review = await reviewModel.destroy({
-        where: {
-            idUser: parseInt(idUser),
-            idBook: parseInt(idBook)
-        }
-    });
-    return review;
+    return {bookList: data};
 }
 
 module.exports = {
-    createReview,
-    getReviewsByIdUser,
-    deleteReview
+    getMostReviewed,
+    getBestReviewed
 }
