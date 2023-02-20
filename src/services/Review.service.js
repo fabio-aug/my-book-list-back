@@ -1,35 +1,66 @@
-const bookModel = require('./../models/Book.model');
 const reviewModel = require('./../models/Review.model');
 
-async function createReview(reviewDto) {
-    const review = await reviewModel.create(reviewDto);
-    return review;
+async function getMostReviewed(amoutItems) {
+    amoutItems = parseInt(amoutItems); 
+    const data = await reviewModel.findAll({
+        limit: amoutItems,
+        group: ['idBook']
+    });
+    return {bookList: data};
 }
 
-async function getReviewsByIdUser(idUser) {
-    const reviewsList = await reviewModel.findAll({
-        include: {
-            model: bookModel,
-        },
-        where: {
-            idUser: parseInt(idUser)
-        }
+async function getBestReviewed(amoutItems){
+    amoutItems = parseInt(amoutItems); 
+    const data = await reviewModel.findAll({
+        limit: amoutItems,
+        order:[
+            ['score', 'DESC']
+        ] 
     });
-    return reviewsList;
+    return {bookList: data};
 }
 
-async function deleteReview(idUser, idBook) {
-    const review = await reviewModel.destroy({
+async function dashboardByIdUser(idUser) {
+    idUser = parseInt(idUser);
+
+    const countReading = await reviewModel.count({
         where: {
-            idUser: parseInt(idUser),
-            idBook: parseInt(idBook)
+            idUser: idUser,
+            status: 1
         }
     });
-    return review;
+
+    const countCompleted = await reviewModel.count({
+        where: {
+            idUser: idUser,
+            status: 2
+        }
+    });
+
+    const countStopped = await reviewModel.count({
+        where: {
+            idUser: idUser,
+            status: 3
+        }
+    });
+
+    const countToRead = await reviewModel.count({
+        where: {
+            idUser: idUser,
+            status: 4
+        }
+    });
+
+    return {
+        reading: countReading,
+        completed: countCompleted,
+        stopped: countStopped,
+        toRead: countToRead
+    };
 }
 
 module.exports = {
-    createReview,
-    getReviewsByIdUser,
-    deleteReview
+    getMostReviewed,
+    getBestReviewed,
+    dashboardByIdUser
 }

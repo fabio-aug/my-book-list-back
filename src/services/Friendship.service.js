@@ -45,6 +45,59 @@ async function searchUserFriendship(idUser, page, amoutItems) {
     };
 }
 
+async function verifyFriendship(idUser1, idUser2) {
+    const verifyCount = await friendshipModel.count({
+        where: {
+            [Op.or]: [{
+                idUser1: idUser1,
+                idUser2: idUser2
+            }, {
+                idUser1: idUser2,
+                idUser2: idUser1
+            }]
+        },
+    });
+
+    return verifyCount === 1;
+}
+
+async function createFriendship(idUser1, idUser2) {
+    const verify = await verifyFriendship(idUser1, idUser2);
+
+    if (verify) throw new Error('Usuários já são amigos.');
+
+    const friendship = await friendshipModel.create({
+        idUser1: idUser1,
+        idUser2: idUser2,
+        dateOfFriendship: new Date()
+    });
+
+    return true;
+}
+
+async function deleteFriendship(idUser1, idUser2) {
+    const verify = await verifyFriendship(idUser1, idUser2);
+
+    if (!verify) throw new Error('Usuários não são amigos.');
+
+    const friendship = await friendshipModel.destroy({
+        where: {
+            [Op.or]: [{
+                idUser1: idUser1,
+                idUser2: idUser2
+            }, {
+                idUser1: idUser2,
+                idUser2: idUser1
+            }]
+        },
+    });
+
+    return false;
+}
+
 module.exports = {
-    searchUserFriendship
+    searchUserFriendship,
+    verifyFriendship,
+    createFriendship,
+    deleteFriendship
 }

@@ -13,7 +13,8 @@ async function getFavoritesListByIdUser(idUser) {
         },
         where: {
             idUser: parseInt(idUser)
-        }
+        },
+        limit: 6
     });
     return favoritesList;
 }
