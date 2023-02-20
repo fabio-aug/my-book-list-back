@@ -8,9 +8,23 @@ friendshipController.get('/friendship/searchUserFriendship', (req, res, next) =>
     // #swagger.tags = ['friendship']
     // #swagger.description = 'Buscar de amizades do usuário.'
 
-    // #swagger.parameters['idUser'] = { description: 'Id do usuário a buscar as amizades.' }
-    // #swagger.parameters['page'] = { description: 'Página de itens.' }
-    // #swagger.parameters['itens'] = { description: 'Quantidade de itens a buscar.' }
+    /* #swagger.parameters['idUser'] = {
+        description: 'Id do usuário a buscar as amizades.',
+        required: true,
+        type: 'integer'
+    } *\
+
+    /* #swagger.parameters['page'] = {
+        description: 'Página de itens.',
+        required: true,
+        type: 'integer'
+    } */
+
+    /* #swagger.parameters['itens'] = {
+        description: 'Quantidade de itens a buscar.',
+        required: true,
+        type: 'integer'
+    } */
 
     friendshipService.searchUserFriendship(req.query.idUser, req.query.page, req.query.itens).then((response) => {
         const data = fr.responseSucces(response);
