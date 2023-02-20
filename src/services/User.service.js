@@ -53,14 +53,16 @@ async function updateUser(id, dto) {
     if (userData.password != dto.password) throw new Error('Senha incorreta, autorização negada.');
 
     const uptObj = {
-        name: dto.name != userData.name ? dto.name : userData.name,
-        photo: dto.photo != userData.photo ? dto.photo : userData.photo,
-        nickname: dto.nickname != userData.nickname ? dto.nickname : userData.nickname,
-        dateOfBirth: dto.dateOfBirth != userData.dateOfBirth ? dto.dateOfBirth : userData.dateOfBirth,
-        email: dto.email != userData.email ? dto.email : userData.email,
-        nationality: dto.nationality != userData.nationality ? dto.nationality : userData.nationality,
-        phone: dto.phone != userData.phone ? dto.phone : userData.phone,
+        name: dto.name,
+        photo: dto.photo,
+        nickname: dto.nickname,
+        dateOfBirth: dto.dateOfBirth,
+        email: dto.email,
+        nationality: dto.nationality,
+        phone: dto.phone,
     }
+
+    console.log(uptObj);
 
     const user = await userModel.update(uptObj, {
         where: {

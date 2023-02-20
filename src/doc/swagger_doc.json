@@ -405,6 +405,202 @@
         }
       }
     },
+    "/friendship/verifyFriendship": {
+      "get": {
+        "tags": [
+          "friendship"
+        ],
+        "description": "Verificar a amizade entre dois usuários.",
+        "parameters": [
+          {
+            "name": "idUser1",
+            "description": "Id do usuário a buscar a amizade.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          },
+          {
+            "name": "idUser2",
+            "description": "Id do usuário a buscar a amizade.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "true or false"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
+    "/friendship/createFriendship": {
+      "post": {
+        "tags": [
+          "friendship"
+        ],
+        "description": "Criar amizade entre dois usuários.",
+        "parameters": [
+          {
+            "name": "create",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUser1": {
+                  "type": "number",
+                  "example": 0
+                },
+                "idUser2": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "true or false"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
+    "/friendship/deleteFriendship": {
+      "delete": {
+        "tags": [
+          "friendship"
+        ],
+        "description": "Deletar a amizade entre dois usuários.",
+        "parameters": [
+          {
+            "name": "idUser1",
+            "description": "Id do usuário a deletar a amizade.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          },
+          {
+            "name": "idUser2",
+            "description": "Id do usuário a deletar a amizade.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "true or false"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
     "/review/getMostReviewed": {
       "get": {
         "tags": [
