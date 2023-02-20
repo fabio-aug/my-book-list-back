@@ -31,15 +31,17 @@ async function searchBook(term = '', page, amoutItems) {
     };
 }
 
-async function getLastBooks(amoutItems){ 
-    amoutItems = parseInt(amoutItems); 
+async function getLastBooks(){ 
     const data = await bookModel.findAll({
-        limit: amoutItems,
+        limit: 2,
         order:[
             ['idBook', 'DESC']
         ] 
     });
-    return {bookList: data};
+    return {
+        lastBookOne: data[0],
+        lastBookTwo: data[1]
+    };
 }
 
 module.exports = {

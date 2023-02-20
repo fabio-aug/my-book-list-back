@@ -1,6 +1,6 @@
 const express = require('express');
 const bookService = require('./../services/Book.service');
-
+const fr = require('./../utils/FormatResponse');
 const bookController = express.Router();
 
 bookController.get('/book/getById', (req, res, next) => {
@@ -27,11 +27,13 @@ bookController.get('/book/searchBook', (req, res, next) => {
 });
 
 bookController.get('/book/getLastBooks', (req, res, next) => {
-    bookService.getLastBooks(req.query.itens).then((response) => {
-        res.send(response);
+    // #swagger.tags = ['book']
+    bookService.getLastBooks().then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
     }).catch((error) => {
-        console.error("Erro ao buscar livros.");
-        next(error);
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
     });
 });
 

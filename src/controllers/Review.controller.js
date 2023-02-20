@@ -6,23 +6,23 @@ const reviewController = express.Router();
 
 reviewController.get('/review/getMostReviewed', (req, res, next) => {
     // #swagger.tags = ['review']
-    
-    reviewService.getMostReviewed(req.query.itens).then((response) => {
-        res.send(response);
+    reviewService.getMostReviewed().then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
     }).catch((error) => {
-        console.error("Erro ao buscar livros.");
-        next(error);
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
     });
 });
 
 reviewController.get('/review/getBestReviewed', (req, res, next) => {
     // #swagger.tags = ['review']
-
-    reviewService.getBestReviewed(req.query.itens).then((response) => {
-        res.send(response);
+    reviewService.getBestReviewed().then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
     }).catch((error) => {
-        console.error("Erro ao buscar livros.");
-        next(error);
+        const data = fr.responseError(error.message);
+        res.status(500).send(data)
     });
 });
 

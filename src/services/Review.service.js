@@ -1,23 +1,45 @@
+const Op = require('sequelize');
 const reviewModel = require('./../models/Review.model');
+const bookModel = require('./../models/Book.model');
 
-async function getMostReviewed(amoutItems) {
-    amoutItems = parseInt(amoutItems); 
+async function getMostReviewed() {
     const data = await reviewModel.findAll({
-        limit: amoutItems,
-        group: ['idBook']
-    });
-    return {bookList: data};
-}
-
-async function getBestReviewed(amoutItems){
-    amoutItems = parseInt(amoutItems); 
-    const data = await reviewModel.findAll({
-        limit: amoutItems,
+        limit: 3,
+        include: {
+            model: bookModel,
+        },
+        attributes:{
+            include: [Op.fn('SUM', Op.col('score')), 'score']
+        },
         order:[
             ['score', 'DESC']
-        ] 
+        ],
+        group:['idBook']
     });
-    return {bookList: data};
+    return {
+        bookList: data
+    };
+}
+
+async function getBestReviewed(){
+    const data = await reviewModel.findAll({
+        limit: 3,
+        include: {
+            model: bookModel,
+        },
+        attributes:{
+            include: [Op.fn('AVG', Op.col('score')), 'score']
+        },
+        order:[
+            ['score', 'DESC']
+        ],
+        group:['idBook']
+    });
+    return {
+        bestBookOne: data[0],
+        bestBookTwo: data[1],
+        bestBookThree: data[2]
+    };
 }
 
 async function dashboardByIdUser(idUser) {
