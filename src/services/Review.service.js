@@ -9,10 +9,10 @@ async function getMostReviewed() {
             model: bookModel,
         },
         attributes:{
-            include: [Op.fn('SUM', Op.col('score')), 'score']
+            include: [Op.fn('COUNT', Op.col('status')), 'status']
         },
         order:[
-            ['score', 'DESC']
+            ['status', 'DESC']
         ],
         group:['idBook']
     });
