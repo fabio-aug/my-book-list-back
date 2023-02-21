@@ -36,9 +36,7 @@ async function getBestReviewed(){
         group:['idBook']
     });
     return {
-        bestBookOne: data[0],
-        bestBookTwo: data[1],
-        bestBookThree: data[2]
+        bookList: data 
     };
 }
 
