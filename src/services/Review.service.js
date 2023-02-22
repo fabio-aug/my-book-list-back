@@ -106,11 +106,32 @@ async function dashboardByIdUser(idUser) {
     };
 }
 
+
+async function getLastReviews() {
+    const data = await reviewModel.findAll({
+        limit: 3,
+        include: {
+            model: bookModel,
+        },
+        attributes:{
+            include: [Op.fn('COUNT', Op.col('status')), 'status']
+        },
+        order:[
+            ['status', 'DESC']
+        ],
+        group:['idBook']
+    });
+    return {
+        bookList: data
+    };
+}
+
 module.exports = {
     createReview,
     getReviewsByIdUser,
     deleteReview,
     getMostReviewed,
     getBestReviewed,
-    dashboardByIdUser
+    dashboardByIdUser,
+    getLastReviews
 }

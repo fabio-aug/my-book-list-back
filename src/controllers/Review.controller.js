@@ -96,4 +96,18 @@ reviewController.get('/review/dashboardByIdUser', (req, res, next) => {
     } */
 });
 
+// implemntação book details
+reviewController.get('/review/getLastReviews', (req, res, next) => {
+    // #swagger.tags = ['review']
+    reviewService.getMostReviewed().then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
+    }).catch((error) => {
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
+    });
+});
+
+
+
 module.exports = reviewController;
