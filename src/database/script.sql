@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS Review (
 	score INT NOT NULL,
 	note VARCHAR(1000),
 	status INT NOT NULL,
+    dateOfReview DATETIME NOT NULL,
 
 	PRIMARY KEY (idUser, idBook),
 	FOREIGN KEY (idUser) REFERENCES User (idUser),
