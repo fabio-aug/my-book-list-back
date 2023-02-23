@@ -1,0 +1,187 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "endpoints",
+    "dateExported": "2023-02-04T14:25:27.741Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "9d5ee6b6-347e-4f38-8df3-4d4c1639daaf",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "user - create",
+            "url": "localhost:44390/user/create",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2023-01-28T14:00:30.796Z",
+            "modified": "2023-01-28T14:00:30.796Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"photo\": \"\",\n    \"nickname\": \"User Nickname\",\n    \"nationality\": \"User Nationality\",\n    \"name\": \"User Name\",\n    \"dateOfBirth\": \"2000-10-20\",\n    \"email\": \"User Email\",\n    \"phone\": \"User Phone\",\n    \"password\": \"User Password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "55ce9915-795c-4781-8c03-464fe59ed448",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "user - getById",
+            "url": "localhost:44390/user/getById?id=1",
+            "method": "GET",
+            "sortNum": 8750,
+            "created": "2023-01-28T14:00:30.798Z",
+            "modified": "2023-01-28T14:00:30.798Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "69c1a0ab-13e9-4b78-aa31-afd732506d6f",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "user - update",
+            "url": "localhost:44390/user/update",
+            "method": "PUT",
+            "sortNum": 10000,
+            "created": "2023-01-28T14:00:30.799Z",
+            "modified": "2023-01-28T14:00:30.799Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"idUser\": 1,\n    \"photo\": \"User photo\",\n    \"nickname\": \"User Nickname\",\n    \"nationality\": \"User Nationality\",\n    \"name\": \"User Name\",\n    \"dateOfBirth\": \"2000-10-20\",\n    \"email\": \"User Email\",\n    \"phone\": \"User Phone\",\n    \"password\": \"User Password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9261ff0c-ef63-43d5-a05e-dd55c36e7b4d",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "user - delete",
+            "url": "localhost:44390/user/delete?id=3",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-01-28T14:00:30.800Z",
+            "modified": "2023-01-28T14:00:30.800Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "983ec97c-a741-420a-ba64-85bdf5ae45aa",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "book - getById",
+            "url": "localhost:44390/book/getById?id=1",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-01-28T14:00:57.090Z",
+            "modified": "2023-01-28T14:01:09.084Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "a6f64eb8-174c-4d41-8f6f-c2f906496238",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "book - search",
+            "url": "localhost:44390/book/searchBook?term=name&page=1&itens=10",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-01-28T14:01:21.977Z",
+            "modified": "2023-01-28T14:27:45.075Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "term",
+                    "value": "name",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "itens",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "60e74d99-cfe6-4168-8778-7d8effc105ed",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "favorite - getFavoritesListByIdUser",
+            "url": "localhost:44390/favorite/getFavoritesListByIdUser?idUser=5",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-02-01T16:10:46.214Z",
+            "modified": "2023-02-01T16:11:57.637Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "idUser",
+                    "value": "5",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "c8826764-fc50-44b7-9347-9535f1027901",
+            "colId": "bd1805ff-b6dc-4946-956d-b66aa2af4794",
+            "containerId": "",
+            "name": "friendship - searchUserFriendship",
+            "url": "localhost:44390/friendship/searchUserFriendship?idUser=4&page=1&itens=10",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-02-04T10:21:38.208Z",
+            "modified": "2023-02-04T14:25:15.806Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "idUser",
+                    "value": "4",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "itens",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}

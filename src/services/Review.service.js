@@ -30,6 +30,7 @@ async function deleteReview(idUser, idBook) {
 }
 
 async function getMostReviewed() {
+
     const data = await reviewModel.findAll({
         limit: 3,
         include: {
@@ -107,24 +108,7 @@ async function dashboardByIdUser(idUser) {
 }
 
 
-async function getLastReviews() {
-    const data = await reviewModel.findAll({
-        limit: 3,
-        include: {
-            model: bookModel,
-        },
-        attributes:{
-            include: [Op.fn('COUNT', Op.col('status')), 'status']
-        },
-        order:[
-            ['status', 'DESC']
-        ],
-        group:['idBook']
-    });
-    return {
-        bookList: data
-    };
-}
+
 
 module.exports = {
     createReview,
@@ -132,6 +116,5 @@ module.exports = {
     deleteReview,
     getMostReviewed,
     getBestReviewed,
-    dashboardByIdUser,
-    getLastReviews
+    dashboardByIdUser
 }

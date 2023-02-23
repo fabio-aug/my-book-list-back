@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 /* https://sequelize.org/docs/v6/ */
 
-const database = new sequelize('MyBookList', 'root', '', {
+const database = new sequelize('MyBookList', 'root', 'root', {
     dialect: 'mysql',
     host: 'localhost'
 });

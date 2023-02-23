@@ -3,11 +3,13 @@ const userController = require('./User.controller');
 const favoriteController = require('./Favorite.controller');
 const friendshipController = require('./Friendship.controller');
 const reviewController = require('./Review.controller');
+const bookDetailsController = require('./BookDetails.controller');
 
 module.exports = {
     bookController,
     userController,
     favoriteController,
     friendshipController,
-    reviewController
+    reviewController,
+    bookDetailsController
 }
