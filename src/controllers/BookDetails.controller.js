@@ -15,7 +15,6 @@ bookDetailsController.get('/bookDetails/getById', (req, res, next) => {
     });
 });
 
-// implemntação book details
 bookDetailsController.get('/bookDetails/getLastReviews', (req, res, next) => {
     // #swagger.tags = ['review']
     BookDetailsService.getLastReviews().then((response) => {
