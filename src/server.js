@@ -1,5 +1,6 @@
 // Libs
 const cors = require('cors');
+const dotEnv = require('dotenv');
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 
@@ -18,6 +19,7 @@ const {
 
 // Configuração do servidor
 const app = express();
+dotEnv.config();
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -41,7 +43,7 @@ database.authenticate().then(() => {
 
 
 // Inicialização do servidor
-const port = 3001;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}.`);
 });
