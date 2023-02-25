@@ -43,7 +43,7 @@ database.authenticate().then(() => {
 
 
 // Inicialização do servidor
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}.`);
 });
