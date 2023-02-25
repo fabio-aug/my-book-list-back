@@ -37,6 +37,9 @@ app.use(reviewController);
 // Conectar com banco de dados
 database.authenticate().then(() => {
     console.log('Conectado ao banco com sucesso!');
+    return database.sync();
+}).then(() => {
+    console.log('Banco de dados sincronizado!');
 }).catch(() => {
     console.log('Erro ao conectar ao banco.');
 });
