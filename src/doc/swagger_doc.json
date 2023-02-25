@@ -512,6 +512,74 @@
         }
       }
     },
+    "/friendship/createFriendship": {
+      "post": {
+        "tags": [
+          "friendship"
+        ],
+        "description": "Criar amizade entre dois usuários.",
+        "parameters": [
+          {
+            "name": "create",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUser1": {
+                  "type": "number",
+                  "example": 0
+                },
+                "idUser2": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "true or false"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/friendship/searchUserFriendship": {
       "get": {
         "tags": [
@@ -649,74 +717,6 @@
             "required": true,
             "type": "integer",
             "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "string",
-                  "example": "true or false"
-                },
-                "status": {
-                  "type": "boolean",
-                  "example": true
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "500": {
-            "description": "Erro.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "Mensagem de erro."
-                },
-                "status": {
-                  "type": "boolean",
-                  "example": false
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/friendship/createFriendship": {
-      "post": {
-        "tags": [
-          "friendship"
-        ],
-        "description": "Criar amizade entre dois usuários.",
-        "parameters": [
-          {
-            "name": "create",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "idUser1": {
-                  "type": "number",
-                  "example": 0
-                },
-                "idUser2": {
-                  "type": "number",
-                  "example": 0
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -1024,70 +1024,6 @@
                       }
                     }
                   }
-                },
-                "status": {
-                  "type": "boolean",
-                  "example": true
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "500": {
-            "description": "Erro.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "Mensagem de erro."
-                },
-                "status": {
-                  "type": "boolean",
-                  "example": false
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/review/delete": {
-      "delete": {
-        "tags": [
-          "review"
-        ],
-        "description": "Remoção de uma review de um livro.",
-        "parameters": [
-          {
-            "name": "idUser",
-            "description": "Id do usuário a ter a review removida.",
-            "type": "integer",
-            "required": true,
-            "in": "query"
-          },
-          {
-            "name": "idBook",
-            "description": "Id do livro a ter sua review removida.",
-            "type": "integer",
-            "required": true,
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "string",
-                  "example": "Review deletada com sucesso."
                 },
                 "status": {
                   "type": "boolean",
@@ -1512,6 +1448,70 @@
                       }
                     }
                   }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/delete": {
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "description": "Remoção de uma review de um livro.",
+        "parameters": [
+          {
+            "name": "idUser",
+            "description": "Id do usuário a ter a review removida.",
+            "type": "integer",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "idBook",
+            "description": "Id do livro a ter sua review removida.",
+            "type": "integer",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "Review deletada com sucesso."
                 },
                 "status": {
                   "type": "boolean",

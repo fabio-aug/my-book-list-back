@@ -4,6 +4,44 @@ const friendshipService = require('./../services/Friendship.service');
 
 const friendshipController = express.Router();
 
+friendshipController.post('/friendship/createFriendship', (req, res, next) => {
+    // #swagger.tags = ['friendship']
+    // #swagger.description = 'Criar amizade entre dois usuários.'
+
+    /*  #swagger.parameters['create'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            idUser1: 0,
+            idUser2: 0
+        }
+    } */
+
+    friendshipService.createFriendship(req.body.idUser1, req.body.idUser2).then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
+    }).catch((error) => {
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
+    });
+
+    /* #swagger.responses[200] = { 
+        schema: {
+            data: 'true or false',
+            status: true
+        },
+        description: 'Sucesso.' 
+    } */
+
+    /* #swagger.responses[500] = {
+        schema: {
+            msg: 'Mensagem de erro.',
+            status: false
+        },
+        description: 'Erro.' 
+    } */
+});
+
 friendshipController.get('/friendship/searchUserFriendship', (req, res, next) => {
     // #swagger.tags = ['friendship']
     // #swagger.description = 'Buscar de amizades do usuário.'
@@ -81,44 +119,6 @@ friendshipController.get('/friendship/verifyFriendship', (req, res, next) => {
     } */
 
     friendshipService.verifyFriendship(req.query.idUser1, req.query.idUser2).then((response) => {
-        const data = fr.responseSucces(response);
-        res.send(data);
-    }).catch((error) => {
-        const data = fr.responseError(error.message);
-        res.status(500).send(data);
-    });
-
-    /* #swagger.responses[200] = { 
-        schema: {
-            data: 'true or false',
-            status: true
-        },
-        description: 'Sucesso.' 
-    } */
-
-    /* #swagger.responses[500] = {
-        schema: {
-            msg: 'Mensagem de erro.',
-            status: false
-        },
-        description: 'Erro.' 
-    } */
-});
-
-friendshipController.post('/friendship/createFriendship', (req, res, next) => {
-    // #swagger.tags = ['friendship']
-    // #swagger.description = 'Criar amizade entre dois usuários.'
-
-    /*  #swagger.parameters['create'] = {
-        in: 'body',
-        required: true,
-        schema: {
-            idUser1: 0,
-            idUser2: 0
-        }
-    } */
-
-    friendshipService.createFriendship(req.body.idUser1, req.body.idUser2).then((response) => {
         const data = fr.responseSucces(response);
         res.send(data);
     }).catch((error) => {

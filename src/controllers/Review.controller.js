@@ -106,48 +106,6 @@ reviewController.get('/review/getReviewsByIdUser', (req, res, next) => {
     } */
 });
 
-reviewController.delete('/review/delete', (req, res, next) => {
-    // #swagger.tags = ['review']
-    // #swagger.description = 'Remoção de uma review de um livro.'
-
-    /* #swagger.parameters['idUser'] = {
-        description: 'Id do usuário a ter a review removida.',
-        type: 'integer',
-        required: true
-    } */
-
-    /* #swagger.parameters['idBook'] = {
-        description: 'Id do livro a ter sua review removida.',
-        type: 'integer',
-        required: true
-    } */
-
-    const { idUser, idBook } = req.query;
-    reviewService.deleteUser(idUser, idBook).then((response) => {
-        const data = fr.responseSucces('Review deletada com sucesso.');
-        res.send(data);
-    }).catch((error) => {
-        const data = fr.responseError(error.message);
-        res.status(500).send(data);
-    });
-
-    /* #swagger.responses[200] = { 
-        schema: {
-            data: 'Review deletada com sucesso.',
-            status: true
-        },
-        description: 'Sucesso.' 
-    } */
-
-    /* #swagger.responses[500] = { 
-        schema: {
-            msg: 'Mensagem de erro.',
-            status: false
-        },
-        description: 'Erro.' 
-    } */
-});
-
 reviewController.get('/review/getMostReviewed', (req, res, next) => {
     // #swagger.tags = ['review']
     // #swagger.description = 'Listar os livros com maior quantidade de reviews.'
@@ -324,6 +282,48 @@ reviewController.get('/review/getLastReviews', (req, res, next) => {
     } */
 
     /* #swagger.responses[500] = {
+        schema: {
+            msg: 'Mensagem de erro.',
+            status: false
+        },
+        description: 'Erro.' 
+    } */
+});
+
+reviewController.delete('/review/delete', (req, res, next) => {
+    // #swagger.tags = ['review']
+    // #swagger.description = 'Remoção de uma review de um livro.'
+
+    /* #swagger.parameters['idUser'] = {
+        description: 'Id do usuário a ter a review removida.',
+        type: 'integer',
+        required: true
+    } */
+
+    /* #swagger.parameters['idBook'] = {
+        description: 'Id do livro a ter sua review removida.',
+        type: 'integer',
+        required: true
+    } */
+
+    const { idUser, idBook } = req.query;
+    reviewService.deleteUser(idUser, idBook).then((response) => {
+        const data = fr.responseSucces('Review deletada com sucesso.');
+        res.send(data);
+    }).catch((error) => {
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
+    });
+
+    /* #swagger.responses[200] = { 
+        schema: {
+            data: 'Review deletada com sucesso.',
+            status: true
+        },
+        description: 'Sucesso.' 
+    } */
+
+    /* #swagger.responses[500] = { 
         schema: {
             msg: 'Mensagem de erro.',
             status: false
