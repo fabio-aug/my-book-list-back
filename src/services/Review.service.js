@@ -114,10 +114,10 @@ async function getLastReviews() {
             model: bookModel,
         },
         attributes:{
-            include: [Op.fn('COUNT', Op.col('status')), 'status']
+            include: [Op.fn('COUNT', Op.col('dateOfReview')), 'dateOfReview']
         },
         order:[
-            ['status', 'DESC']
+            ['dateOfReview', 'DESC']
         ],
         group:['idBook']
     });

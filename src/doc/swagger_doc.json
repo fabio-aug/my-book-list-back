@@ -16,12 +16,14 @@
         "tags": [
           "book"
         ],
-        "description": "",
+        "description": "Busca livro pelo Id",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
-            "type": "string"
+            "required": true,
+            "type": "integer",
+            "description": "Id do livro a ser buscado.",
+            "in": "query"
           }
         ],
         "responses": {
@@ -36,44 +38,110 @@
         "tags": [
           "book"
         ],
-        "description": "",
+        "description": "Pesquisa de livro",
         "parameters": [
           {
             "name": "term",
-            "in": "query",
-            "type": "string"
+            "description": "Termo para buscar o livro",
+            "required": true,
+            "type": "string",
+            "in": "query"
           },
           {
             "name": "page",
-            "in": "query",
-            "type": "string"
+            "description": "Página de itens.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
           },
           {
             "name": "itens",
-            "in": "query",
-            "type": "string"
+            "description": "Quantidade de itens a buscar.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idBook": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "base64 ou null"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nome"
+                    },
+                    "publisher": {
+                      "type": "string",
+                      "example": "Editora"
+                    },
+                    "dateOfPublication": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd"
+                    },
+                    "synopsis": {
+                      "type": "string",
+                      "example": "sinopse"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
           }
         }
       }
     },
     "/book/getLastBooks": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "itens",
-            "in": "query",
-            "type": "string"
-          }
+        "tags": [
+          "book"
         ],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -601,17 +669,191 @@
         }
       }
     },
-    "/review/getMostReviewed": {
+    "/review/create": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "description": "Criar nova review de um livro",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "body",
+            "description": "Id do usuário a fazer a review livro.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          {
+            "name": "idBook",
+            "in": "body",
+            "description": "Id do livro a ser feita a review.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idBook": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
+    "/review/getReviewsByIdUser": {
       "get": {
         "tags": [
           "review"
         ],
-        "description": "",
+        "description": "Listar as reviews do usuário.",
         "parameters": [
           {
-            "name": "itens",
-            "in": "query",
-            "type": "string"
+            "name": "idUser",
+            "description": "Id do usuário a ter suas reviews listadas.",
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "reviewsList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idBook": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "idUser": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "Book": {
+                            "type": "object",
+                            "properties": {
+                              "idBook": {
+                                "type": "number",
+                                "example": 0
+                              },
+                              "photo": {
+                                "type": "string",
+                                "example": "base64 ou null"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "nome"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Erro."
+          }
+        }
+      }
+    },
+    "/review/delete": {
+      "delete": {
+        "tags": [
+          "favorite"
+        ],
+        "description": "Remoção de uma review de um livro.",
+        "parameters": [
+          {
+            "name": "idUser",
+            "description": "Id do usuário a ter a review removida.",
+            "type": "integer",
+            "in": "query"
+          },
+          {
+            "name": "idBook",
+            "description": "Id do livro a ter sua review removida.",
+            "type": "integer",
+            "in": "query"
           }
         ],
         "responses": {
@@ -621,22 +863,50 @@
         }
       }
     },
-    "/review/getBestReviewed": {
+    "/review/getMostReviewed": {
       "get": {
         "tags": [
           "review"
         ],
-        "description": "",
+        "description": "Listar os livros com maior quantidade de reviews.",
         "parameters": [
           {
-            "name": "itens",
-            "in": "query",
-            "type": "string"
+            "name": "idBook",
+            "description": "Id do livro a ter sua quantidade de reviews contadas.",
+            "type": "integer",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/review/getBestReviewed": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "description": "Listar os livros com melhor nota nas reviews.",
+        "parameters": [
+          {
+            "name": "idBook",
+            "description": "Id do livro a ter a busca feita",
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -711,6 +981,23 @@
                 "name": "main"
               }
             }
+          }
+        }
+      }
+    },
+    "/review/getLastReviews": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
