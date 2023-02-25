@@ -31,7 +31,7 @@ friendshipController.get('/friendship/searchUserFriendship', (req, res, next) =>
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
-        res.send(data);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
@@ -85,7 +85,7 @@ friendshipController.get('/friendship/verifyFriendship', (req, res, next) => {
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
-        res.send(data);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
@@ -123,7 +123,7 @@ friendshipController.post('/friendship/createFriendship', (req, res, next) => {
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
-        res.send(data);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
@@ -164,7 +164,7 @@ friendshipController.delete('/friendship/deleteFriendship', (req, res, next) => 
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
-        res.send(data);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 

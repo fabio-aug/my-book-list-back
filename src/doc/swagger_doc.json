@@ -28,42 +28,6 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/book/searchBook": {
-      "get": {
-        "tags": [
-          "book"
-        ],
-        "description": "Pesquisa de livro",
-        "parameters": [
-          {
-            "name": "term",
-            "description": "Termo para buscar o livro",
-            "required": true,
-            "type": "string",
-            "in": "query"
-          },
-          {
-            "name": "page",
-            "description": "Página de itens.",
-            "required": true,
-            "type": "integer",
-            "in": "query"
-          },
-          {
-            "name": "itens",
-            "description": "Quantidade de itens a buscar.",
-            "required": true,
-            "type": "integer",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
             "description": "Sucesso.",
             "schema": {
               "type": "object",
@@ -108,6 +72,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -123,8 +88,105 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
+          }
+        }
+      }
+    },
+    "/book/searchBook": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "description": "Pesquisar livros",
+        "parameters": [
+          {
+            "name": "term",
+            "description": "Termo para buscar o livro",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "page",
+            "description": "Página de itens.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          },
+          {
+            "name": "itens",
+            "description": "Quantidade de itens a buscar.",
+            "required": true,
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "photo": {
+                        "type": "string",
+                        "example": "base64 ou null"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "nome"
+                      },
+                      "publisher": {
+                        "type": "string",
+                        "example": "Editora"
+                      },
+                      "dateOfPublication": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd"
+                      },
+                      "synopsis": {
+                        "type": "string",
+                        "example": "sinopse"
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -134,14 +196,74 @@
         "tags": [
           "book"
         ],
-        "description": "",
+        "description": "Busca os últimos livros criados",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "photo": {
+                        "type": "string",
+                        "example": "base64 ou null"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "nome"
+                      },
+                      "publisher": {
+                        "type": "string",
+                        "example": "Editora"
+                      },
+                      "dateOfPublication": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd"
+                      },
+                      "synopsis": {
+                        "type": "string",
+                        "example": "sinopse"
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -154,21 +276,22 @@
         "description": "Criar novo livro favorito do usuário.",
         "parameters": [
           {
-            "name": "idUser",
+            "name": "favorite",
             "in": "body",
-            "description": "Id do usuário a favoritar o livro.",
+            "required": true,
+            "description": "Id do usuário e livro para criação de um favorito.",
             "schema": {
               "type": "object",
-              "properties": {}
-            }
-          },
-          {
-            "name": "idBook",
-            "in": "body",
-            "description": "Id do livro a ser favoritado.",
-            "schema": {
-              "type": "object",
-              "properties": {}
+              "properties": {
+                "idUser": {
+                  "type": "number",
+                  "example": 0
+                },
+                "idBook": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
             }
           }
         ],
@@ -202,6 +325,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -217,8 +341,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -232,6 +355,7 @@
         "parameters": [
           {
             "name": "idUser",
+            "required": true,
             "description": "Id do usuário a ter seus favoritos listados.",
             "type": "integer",
             "in": "query"
@@ -244,53 +368,48 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "favoritesList": {
-                      "type": "array",
-                      "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "idUser": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "Book": {
                         "type": "object",
                         "properties": {
                           "idBook": {
                             "type": "number",
                             "example": 0
                           },
-                          "idUser": {
-                            "type": "number",
-                            "example": 0
+                          "photo": {
+                            "type": "string",
+                            "example": "base64 ou null"
                           },
-                          "Book": {
-                            "type": "object",
-                            "properties": {
-                              "idBook": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "photo": {
-                                "type": "string",
-                                "example": "base64 ou null"
-                              },
-                              "name": {
-                                "type": "string",
-                                "example": "nome"
-                              },
-                              "author": {
-                                "type": "string",
-                                "example": "autor"
-                              },
-                              "publisher": {
-                                "type": "string",
-                                "example": "editora"
-                              },
-                              "dateOfPublication": {
-                                "type": "string",
-                                "example": "yyyy-MM-dd"
-                              },
-                              "synopsis": {
-                                "type": "string",
-                                "example": "sinopse"
-                              }
-                            }
+                          "name": {
+                            "type": "string",
+                            "example": "nome"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "autor"
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "editora"
+                          },
+                          "dateOfPublication": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd"
+                          },
+                          "synopsis": {
+                            "type": "string",
+                            "example": "sinopse"
                           }
                         }
                       }
@@ -308,6 +427,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -323,8 +443,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -338,20 +457,57 @@
         "parameters": [
           {
             "name": "idUser",
-            "description": "Id do usuário a ter o livro retirado dos seus favoritos.",
+            "required": true,
+            "description": "Id do usuário",
             "type": "integer",
             "in": "query"
           },
           {
             "name": "idBook",
-            "description": "Id do livro a ser removido dos favoritos do usuário.",
+            "required": true,
+            "description": "Id do livro",
             "type": "integer",
             "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "Favorito deletado com sucesso."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -452,6 +608,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -467,8 +624,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -516,6 +672,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -531,8 +688,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -584,6 +740,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -599,8 +756,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -648,6 +804,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -663,8 +820,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -677,21 +833,38 @@
         "description": "Criar nova review de um livro",
         "parameters": [
           {
-            "name": "idUser",
+            "name": "create",
+            "required": true,
             "in": "body",
             "description": "Id do usuário a fazer a review livro.",
             "schema": {
               "type": "object",
-              "properties": {}
-            }
-          },
-          {
-            "name": "idBook",
-            "in": "body",
-            "description": "Id do livro a ser feita a review.",
-            "schema": {
-              "type": "object",
-              "properties": {}
+              "properties": {
+                "idUser": {
+                  "type": "number",
+                  "example": 0
+                },
+                "idBook": {
+                  "type": "number",
+                  "example": 0
+                },
+                "score": {
+                  "type": "number",
+                  "example": 10
+                },
+                "note": {
+                  "type": "string",
+                  "example": "Nota"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                },
+                "dateOfReview": {
+                  "type": "string",
+                  "example": "yyyy-MM-dd 00:00:00"
+                }
+              }
             }
           }
         ],
@@ -704,13 +877,29 @@
                 "data": {
                   "type": "object",
                   "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
                     "idBook": {
                       "type": "number",
                       "example": 0
                     },
-                    "idUser": {
+                    "score": {
                       "type": "number",
-                      "example": 0
+                      "example": 10
+                    },
+                    "note": {
+                      "type": "string",
+                      "example": "Nota"
+                    },
+                    "status": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "dateOfReview": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd 00:00:00"
                     }
                   }
                 },
@@ -725,6 +914,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -740,8 +930,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -755,6 +944,7 @@
         "parameters": [
           {
             "name": "idUser",
+            "required": true,
             "description": "Id do usuário a ter suas reviews listadas.",
             "type": "integer",
             "in": "query"
@@ -767,37 +957,68 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "reviewsList": {
-                      "type": "array",
-                      "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idUser": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "note": {
+                        "type": "string",
+                        "example": "Nota"
+                      },
+                      "status": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "dateOfReview": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd 00:00:00"
+                      },
+                      "Book": {
                         "type": "object",
                         "properties": {
                           "idBook": {
                             "type": "number",
                             "example": 0
                           },
-                          "idUser": {
+                          "status": {
                             "type": "number",
                             "example": 0
                           },
-                          "Book": {
-                            "type": "object",
-                            "properties": {
-                              "idBook": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "photo": {
-                                "type": "string",
-                                "example": "base64 ou null"
-                              },
-                              "name": {
-                                "type": "string",
-                                "example": "nome"
-                              }
-                            }
+                          "photo": {
+                            "type": "string",
+                            "example": "base64 ou null"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "nome"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "autor"
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "editora"
+                          },
+                          "dateOfPublication": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd"
+                          },
+                          "synopsis": {
+                            "type": "string",
+                            "example": "sinopse"
                           }
                         }
                       }
@@ -815,6 +1036,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -830,8 +1052,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }
@@ -839,7 +1060,7 @@
     "/review/delete": {
       "delete": {
         "tags": [
-          "favorite"
+          "review"
         ],
         "description": "Remoção de uma review de um livro.",
         "parameters": [
@@ -847,18 +1068,55 @@
             "name": "idUser",
             "description": "Id do usuário a ter a review removida.",
             "type": "integer",
+            "required": true,
             "in": "query"
           },
           {
             "name": "idBook",
             "description": "Id do livro a ter sua review removida.",
             "type": "integer",
+            "required": true,
             "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "Review deletada com sucesso."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -869,20 +1127,110 @@
           "review"
         ],
         "description": "Listar os livros com maior quantidade de reviews.",
-        "parameters": [
-          {
-            "name": "idBook",
-            "description": "Id do livro a ter sua quantidade de reviews contadas.",
-            "type": "integer",
-            "in": "query"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idUser": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "note": {
+                        "type": "string",
+                        "example": "Nota"
+                      },
+                      "status": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "dateOfReview": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd 00:00:00"
+                      },
+                      "Book": {
+                        "type": "object",
+                        "properties": {
+                          "idBook": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "photo": {
+                            "type": "string",
+                            "example": "base64 ou null"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "nome"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "autor"
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "editora"
+                          },
+                          "dateOfPublication": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd"
+                          },
+                          "synopsis": {
+                            "type": "string",
+                            "example": "sinopse"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -893,20 +1241,110 @@
           "review"
         ],
         "description": "Listar os livros com melhor nota nas reviews.",
-        "parameters": [
-          {
-            "name": "idBook",
-            "description": "Id do livro a ter a busca feita",
-            "type": "integer",
-            "in": "query"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idUser": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "note": {
+                        "type": "string",
+                        "example": "Nota"
+                      },
+                      "status": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "dateOfReview": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd 00:00:00"
+                      },
+                      "Book": {
+                        "type": "object",
+                        "properties": {
+                          "idBook": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "photo": {
+                            "type": "string",
+                            "example": "base64 ou null"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "nome"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "autor"
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "editora"
+                          },
+                          "dateOfPublication": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd"
+                          },
+                          "synopsis": {
+                            "type": "string",
+                            "example": "sinopse"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -990,14 +1428,119 @@
         "tags": [
           "review"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "Buscar últimas reviews de um livro.",
+        "parameters": [
+          {
+            "name": "idBook",
+            "required": true,
+            "type": "integer",
+            "description": "Id do livro a buscar as últimas reviews.",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idUser": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "idBook": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "note": {
+                        "type": "string",
+                        "example": "Nota"
+                      },
+                      "status": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "dateOfReview": {
+                        "type": "string",
+                        "example": "yyyy-MM-dd 00:00:00"
+                      },
+                      "Book": {
+                        "type": "object",
+                        "properties": {
+                          "idBook": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "photo": {
+                            "type": "string",
+                            "example": "base64 ou null"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "nome"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "autor"
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "editora"
+                          },
+                          "dateOfPublication": {
+                            "type": "string",
+                            "example": "yyyy-MM-dd"
+                          },
+                          "synopsis": {
+                            "type": "string",
+                            "example": "sinopse"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -1499,6 +2042,7 @@
             }
           },
           "500": {
+            "description": "Erro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -1514,8 +2058,7 @@
               "xml": {
                 "name": "main"
               }
-            },
-            "description": "Erro."
+            }
           }
         }
       }

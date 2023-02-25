@@ -5,24 +5,40 @@ const reviewService = require('./../services/Review.service');
 const reviewController = express.Router();
 
 reviewController.post('/review/create', (req, res, next) => {
-
     // #swagger.tags = ['review']
     // #swagger.description = 'Criar nova review de um livro'
-    // #swagger.parameters['idUser'] = {in:'body', description: 'Id do usuário a fazer a review livro.', type: 'integer'}
-    // #swagger.parameters['idBook'] = {in:'body', description: 'Id do livro a ser feita a review.', type: 'integer' }
+
+    /* #swagger.parameters['create'] = {
+        required: true,
+        in:'body',
+        description: 'Id do usuário a fazer a review livro.',
+        schema: {
+            idUser: 0,
+            idBook: 0,
+            score: 10,
+            note: 'Nota', 
+            status: 1,
+            dateOfReview: 'yyyy-MM-dd 00:00:00'
+        }
+    } */
 
     reviewService.createReview(req.body).then((response) => {
-        res.send(response);
+        const data = fr.responseSucces(response);
+        res.send(data);
     }).catch((error) => {
-        console.error('Erro ao adicionar review.');
-        next(error);
+        const data = fr.responseSucces(error.message);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
         schema: {
             data: {
+                idUser: 0,
                 idBook: 0,
-                idUser: 0
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00'
             },
             status: true
         },
@@ -39,31 +55,43 @@ reviewController.post('/review/create', (req, res, next) => {
 });
 
 reviewController.get('/review/getReviewsByIdUser', (req, res, next) => {
-
     // #swagger.tags = ['review']
     // #swagger.description = 'Listar as reviews do usuário.'
-    // #swagger.parameters['idUser'] = { description: 'Id do usuário a ter suas reviews listadas.', type: 'integer' }
+
+    /* #swagger.parameters['idUser'] = {
+        required: true,
+        description: 'Id do usuário a ter suas reviews listadas.',
+        type: 'integer'
+    } */
 
     reviewService.getReviewsByIdUser(req.query.idUser).then((response) => {
-        res.send(response);
+        const data = fr.responseSucces(response);
+        res.send(data);
     }).catch((error) => {
-        console.error('Erro ao buscar lista de reviews.');
-        next(error);
+        const data = fr.responseSucces(error.message);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
         schema: {
-            data: {
-                reviewsList:[{
+            data: [{
+                idUser: 0,
+                idBook: 0,
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00',
+                Book: {
                     idBook: 0,
-                    idUser: 0,
-                    Book: {
-                        idBook: 0,
-                        photo: 'base64 ou null',
-                        name: 'nome',
-                    }
-                }]
-            },
+                    status: 0,
+                    photo: 'base64 ou null',
+                    name: 'nome',
+                    author: 'autor',
+                    publisher: 'editora',
+                    dateOfPublication: 'yyyy-MM-dd',
+                    synopsis: 'sinopse'
+                }
+            }],
             status: true
         },
         description: 'Sucesso.' 
@@ -79,25 +107,33 @@ reviewController.get('/review/getReviewsByIdUser', (req, res, next) => {
 });
 
 reviewController.delete('/review/delete', (req, res, next) => {
-
-    // #swagger.tags = ['favorite']
+    // #swagger.tags = ['review']
     // #swagger.description = 'Remoção de uma review de um livro.'
-    // #swagger.parameters['idUser'] = {description: 'Id do usuário a ter a review removida.', type: 'integer'}
-    // #swagger.parameters['idBook'] = {description: 'Id do livro a ter sua review removida.', type: 'integer' }
-    
+
+    /* #swagger.parameters['idUser'] = {
+        description: 'Id do usuário a ter a review removida.',
+        type: 'integer',
+        required: true
+    } */
+
+    /* #swagger.parameters['idBook'] = {
+        description: 'Id do livro a ter sua review removida.',
+        type: 'integer',
+        required: true
+    } */
+
     const { idUser, idBook } = req.query;
     reviewService.deleteUser(idUser, idBook).then((response) => {
-        res.send('Sucesso!');
+        const data = fr.responseSucces('Review deletada com sucesso.');
+        res.send(data);
     }).catch((error) => {
-        console.error('Erro ao deletar review.');
-        next(error);
+        const data = fr.responseError(error.message);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 
         schema: {
-            data: {
-                'Review deletada com sucesso.'
-            },
+            data: 'Review deletada com sucesso.',
             status: true
         },
         description: 'Sucesso.' 
@@ -113,10 +149,8 @@ reviewController.delete('/review/delete', (req, res, next) => {
 });
 
 reviewController.get('/review/getMostReviewed', (req, res, next) => {
-    
     // #swagger.tags = ['review']
     // #swagger.description = 'Listar os livros com maior quantidade de reviews.'
-    // #swagger.parameters['idBook'] = { description: 'Id do livro a ter sua quantidade de reviews contadas.', type: 'integer' }
 
     reviewService.getMostReviewed().then((response) => {
         const data = fr.responseSucces(response);
@@ -126,24 +160,29 @@ reviewController.get('/review/getMostReviewed', (req, res, next) => {
         res.status(500).send(data);
     });
 
-    /* #swagger.responses[200] = { 
+    /* #swagger.responses[200] = {
         schema: {
-            data: {
-                idBook: 0
+            data: [{
+                idUser: 0,
+                idBook: 0,
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00',
                 Book: {
-                        idBook: 0,
-                        status: 0,
-                        photo: 'base64 ou null',
-                        name: 'nome',
-                        author: "autor",
-                        publisher: "editora",
-                        dateOfPublication: 'yyyy-MM-dd',
-                        synopsis: "sinopse"
-                    }
-            },
+                    idBook: 0,
+                    status: 0,
+                    photo: 'base64 ou null',
+                    name: 'nome',
+                    author: 'autor',
+                    publisher: 'editora',
+                    dateOfPublication: 'yyyy-MM-dd',
+                    synopsis: 'sinopse'
+                }
+            }],
             status: true
         },
-        description: 'Sucesso.' 
+        description: 'Sucesso.'
     } */
 
     /* #swagger.responses[500] = { 
@@ -156,10 +195,8 @@ reviewController.get('/review/getMostReviewed', (req, res, next) => {
 });
 
 reviewController.get('/review/getBestReviewed', (req, res, next) => {
-
     // #swagger.tags = ['review']
     // #swagger.description = 'Listar os livros com melhor nota nas reviews.'
-    // #swagger.parameters['idBook'] = { description: 'Id do livro a ter a busca feita', type: 'integer' }
 
     reviewService.getBestReviewed().then((response) => {
         const data = fr.responseSucces(response);
@@ -169,22 +206,29 @@ reviewController.get('/review/getBestReviewed', (req, res, next) => {
         res.status(500).send(data)
     });
 
-    /* #swagger.responses[200] = { 
+    /* #swagger.responses[200] = {
         schema: {
-            data: {
-                idBook: 0
+            data: [{
+                idUser: 0,
+                idBook: 0,
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00',
                 Book: {
-                        idBook: 0,
-                        score: 0,
-                        photo: 'base64 ou null',
-                        name: 'nome',
-                        author: "autor",
-                        synopsis: "sinopse"
-                    }
-            },
+                    idBook: 0,
+                    status: 0,
+                    photo: 'base64 ou null',
+                    name: 'nome',
+                    author: 'autor',
+                    publisher: 'editora',
+                    dateOfPublication: 'yyyy-MM-dd',
+                    synopsis: 'sinopse'
+                }
+            }],
             status: true
         },
-        description: 'Sucesso.' 
+        description: 'Sucesso.'
     } */
 
     /* #swagger.responses[500] = { 
@@ -214,8 +258,6 @@ reviewController.get('/review/dashboardByIdUser', (req, res, next) => {
         res.status(500).send(data);
     });
 
-
-
     /* #swagger.responses[200] = { 
         schema: {
             data: {
@@ -238,18 +280,56 @@ reviewController.get('/review/dashboardByIdUser', (req, res, next) => {
     } */
 });
 
-// implemntação book details
 reviewController.get('/review/getLastReviews', (req, res, next) => {
     // #swagger.tags = ['review']
-    reviewService.getMostReviewed().then((response) => {
+    // #swagger.description = 'Buscar últimas reviews de um livro.'
+
+    /* #swagger.parameters['idBook'] = {
+        required: true,
+        type: 'integer',
+        description: 'Id do livro a buscar as últimas reviews.'
+    } */
+
+    reviewService.getLastReviews(req.query.idBook).then((response) => {
         const data = fr.responseSucces(response);
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
         res.status(500).send(data);
     });
+
+    /* #swagger.responses[200] = { 
+        schema: {
+            data: [{
+                idUser: 0,
+                idBook: 0,
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00',
+                Book: {
+                    idBook: 0,
+                    status: 0,
+                    photo: 'base64 ou null',
+                    name: 'nome',
+                    author: 'autor',
+                    publisher: 'editora',
+                    dateOfPublication: 'yyyy-MM-dd',
+                    synopsis: 'sinopse'
+                }
+            }],
+            status: true
+        },
+        description: 'Sucesso.'
+    } */
+
+    /* #swagger.responses[500] = {
+        schema: {
+            msg: 'Mensagem de erro.',
+            status: false
+        },
+        description: 'Erro.' 
+    } */
 });
-
-
 
 module.exports = reviewController;

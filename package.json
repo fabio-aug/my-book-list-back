@@ -4,7 +4,7 @@
     "description": "",
     "main": "./src/server.js",
     "scripts": {
-        "start": "nodemon ./src/server.js",
+        "start": "nodemon --ignore swagger_doc.json ./src/server.js",
         "doc": "node ./src/doc/Swagger.js"
     },
     "keywords": [],

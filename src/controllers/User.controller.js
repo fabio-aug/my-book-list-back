@@ -221,7 +221,7 @@ userController.delete('/user/delete', (req, res, next) => {
         res.send(data);
     }).catch((error) => {
         const data = fr.responseError(error.message);
-        res.send(data);
+        res.status(500).send(data);
     });
 
     /* #swagger.responses[200] = { 

@@ -25,7 +25,11 @@ const Review = database.define('Review', {
     status: {
         type: Sequelize.INTEGER,
         allowNull: false
-    }    
+    },
+    dateOfReview: {
+        type: Sequelize.DATE,
+        allowNull: false
+    }
 }, options);
 
 Review.belongsTo(userModel, { foreignKey: 'idUser', allowNull: false });

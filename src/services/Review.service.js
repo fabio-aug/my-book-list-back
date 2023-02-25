@@ -43,6 +43,7 @@ async function getMostReviewed() {
         ],
         group:['idBook']
     });
+
     return {
         bookList: data
     };
@@ -106,24 +107,21 @@ async function dashboardByIdUser(idUser) {
     };
 }
 
-
-async function getLastReviews() {
+async function getLastReviews(idBook) {
     const data = await reviewModel.findAll({
         limit: 3,
+        where: {
+            idBook: parseInt(idBook)
+        },
+        order: [
+            ['dateOfReview', 'DESC']
+        ],
         include: {
             model: bookModel,
         },
-        attributes:{
-            include: [Op.fn('COUNT', Op.col('dateOfReview')), 'dateOfReview']
-        },
-        order:[
-            ['dateOfReview', 'DESC']
-        ],
-        group:['idBook']
     });
-    return {
-        bookList: data
-    };
+
+    return data;
 }
 
 module.exports = {
