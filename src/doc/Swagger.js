@@ -6,8 +6,8 @@ const doc = {
         title: 'My Book List RestAPI',
         description: 'Livros e Listas para todos os gostos!',
     },
-    host: 'localhost:3001',
-    schemes: ['http']
+    host: 'api-mbl.onrender.com',
+    schemes: ['https']
 };
 
 const endpointsFiles = [
