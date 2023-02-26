@@ -3,7 +3,7 @@ USE MyBookList;
 
 CREATE TABLE IF NOT EXISTS User (
 	idUser INT NOT NULL AUTO_INCREMENT,
-	photo TEXT,
+	photo MEDIUMTEXT,
 	nickname VARCHAR(30),
 	nationality VARCHAR(30),
 	name VARCHAR(80) NOT NULL,

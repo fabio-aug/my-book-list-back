@@ -62,8 +62,6 @@ async function updateUser(id, dto) {
         phone: dto.phone,
     }
 
-    console.log(uptObj);
-
     const user = await userModel.update(uptObj, {
         where: {
             idUser: parseInt(id)

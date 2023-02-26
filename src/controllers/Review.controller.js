@@ -11,7 +11,6 @@ reviewController.post('/review/create', (req, res, next) => {
     /* #swagger.parameters['create'] = {
         required: true,
         in:'body',
-        description: 'Id do usuário a fazer a review livro.',
         schema: {
             idUser: 0,
             idBook: 0,
@@ -31,6 +30,96 @@ reviewController.post('/review/create', (req, res, next) => {
     });
 
     /* #swagger.responses[200] = { 
+        schema: {
+            data: {
+                idUser: 0,
+                idBook: 0,
+                score: 10,
+                note: 'Nota', 
+                status: 1,
+                dateOfReview: 'yyyy-MM-dd 00:00:00'
+            },
+            status: true
+        },
+        description: 'Sucesso.' 
+    } */
+
+    /* #swagger.responses[500] = { 
+        schema: {
+            msg: 'Mensagem de erro.',
+            status: false
+        },
+        description: 'Erro.' 
+    } */
+});
+
+reviewController.put('/review/update', (req, res, next) => {
+    // #swagger.tags = ['review']
+    // #swagger.description = 'Atualizar review de um livro'
+
+    /* #swagger.parameters['update'] = {
+        required: true,
+        in:'body',
+        schema: {
+            idUser: 0,
+            idBook: 0,
+            score: 10,
+            note: 'Nota', 
+            status: 1,
+            dateOfReview: 'yyyy-MM-dd 00:00:00'
+        }
+    } */
+
+    reviewService.updateReview(req.body).then((response) => {
+        const data = fr.responseSucces("Sucesso!");
+        res.send(data);
+    }).catch((error) => {
+        const data = fr.responseSucces(error.message);
+        res.status(500).send(data);
+    });
+
+    /* #swagger.responses[200] = { 
+        schema: {
+            data: "Sucesso!",
+            status: true
+        },
+        description: 'Sucesso.' 
+    } */
+
+    /* #swagger.responses[500] = { 
+        schema: {
+            msg: 'Mensagem de erro.',
+            status: false
+        },
+        description: 'Erro.' 
+    } */
+});
+
+reviewController.get('/review/getByIds', (req, res, next) => {
+    // #swagger.tags = ['review']
+    // #swagger.description = 'Remoção de uma review de um livro.'
+
+    /* #swagger.parameters['idUser'] = {
+        description: 'Id do usuário a ter a review buscada.',
+        type: 'integer',
+        required: true
+    } */
+
+    /* #swagger.parameters['idBook'] = {
+        description: 'Id do livro a ter sua review buscada.',
+        type: 'integer',
+        required: true
+    } */
+
+    reviewService.getReviewByIds(req.query.idUser, req.query.idBook).then((response) => {
+        const data = fr.responseSucces(response);
+        res.send(data);
+    }).catch((error) => {
+        const data = fr.responseSucces(error.message);
+        res.status(500).send(data);
+    });
+
+    /* #swagger.responses[200] = {
         schema: {
             data: {
                 idUser: 0,
@@ -265,15 +354,9 @@ reviewController.get('/review/getLastReviews', (req, res, next) => {
                 note: 'Nota', 
                 status: 1,
                 dateOfReview: 'yyyy-MM-dd 00:00:00',
-                Book: {
-                    idBook: 0,
-                    status: 0,
-                    photo: 'base64 ou null',
+                User: {
                     name: 'nome',
-                    author: 'autor',
-                    publisher: 'editora',
-                    dateOfPublication: 'yyyy-MM-dd',
-                    synopsis: 'sinopse'
+                    nickname: 'apelido',
                 }
             }],
             status: true

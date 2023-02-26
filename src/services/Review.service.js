@@ -1,10 +1,39 @@
 const Op = require('sequelize');
-const reviewModel = require('./../models/Review.model');
+const userModel = require('./../models/User.model');
 const bookModel = require('./../models/Book.model');
+const reviewModel = require('./../models/Review.model');
 
 async function createReview(reviewDto) {
     const review = await reviewModel.create(reviewDto);
     return review;
+}
+
+async function updateReview(reviewDto) {
+    const uptObj = {
+        status: reviewDto.status,
+        score: reviewDto.score,
+        note: reviewDto.note,
+    }
+
+    const review = await reviewModel.update(uptObj, {
+        where: {
+            idUser: parseInt(reviewDto.idUser),
+            idBook: parseInt(reviewDto.idBook)
+        }
+    });
+
+    return review;
+}
+
+async function getReviewByIds(idUser, idBook) {
+    const reviewData = await reviewModel.findOne({
+        where: {
+            idUser: parseInt(idUser),
+            idBook: parseInt(idBook)
+        }
+    });
+
+    return reviewData;
 }
 
 async function getReviewsByIdUser(idUser) {
@@ -35,13 +64,13 @@ async function getMostReviewed() {
         include: {
             model: bookModel,
         },
-        attributes:{
+        attributes: {
             include: [Op.fn('COUNT', Op.col('status')), 'status']
         },
-        order:[
+        order: [
             ['status', 'DESC']
         ],
-        group:['idBook']
+        group: ['idBook']
     });
 
     return {
@@ -49,22 +78,22 @@ async function getMostReviewed() {
     };
 }
 
-async function getBestReviewed(){
+async function getBestReviewed() {
     const data = await reviewModel.findAll({
         limit: 3,
         include: {
             model: bookModel,
         },
-        attributes:{
+        attributes: {
             include: [Op.fn('AVG', Op.col('score')), 'score']
         },
-        order:[
+        order: [
             ['score', 'DESC']
         ],
-        group:['idBook']
+        group: ['idBook']
     });
     return {
-        bookList: data 
+        bookList: data
     };
 }
 
@@ -117,7 +146,8 @@ async function getLastReviews(idBook) {
             ['dateOfReview', 'DESC']
         ],
         include: {
-            model: bookModel,
+            model: userModel,
+            attributes: ['idUser', 'name', 'nickname'],
         },
     });
 
@@ -131,5 +161,7 @@ module.exports = {
     getMostReviewed,
     getBestReviewed,
     dashboardByIdUser,
-    getLastReviews
+    getLastReviews,
+    updateReview,
+    getReviewByIds
 }

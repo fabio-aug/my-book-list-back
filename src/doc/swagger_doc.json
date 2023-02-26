@@ -836,7 +836,6 @@
             "name": "create",
             "required": true,
             "in": "body",
-            "description": "Id do usuário a fazer a review livro.",
             "schema": {
               "type": "object",
               "properties": {
@@ -866,6 +865,179 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "idUser": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "idBook": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "score": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "note": {
+                      "type": "string",
+                      "example": "Nota"
+                    },
+                    "status": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "dateOfReview": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd 00:00:00"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/update": {
+      "put": {
+        "tags": [
+          "review"
+        ],
+        "description": "Atualizar review de um livro",
+        "parameters": [
+          {
+            "name": "update",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUser": {
+                  "type": "number",
+                  "example": 0
+                },
+                "idBook": {
+                  "type": "number",
+                  "example": 0
+                },
+                "score": {
+                  "type": "number",
+                  "example": 10
+                },
+                "note": {
+                  "type": "string",
+                  "example": "Nota"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                },
+                "dateOfReview": {
+                  "type": "string",
+                  "example": "yyyy-MM-dd 00:00:00"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "example": "Sucesso!"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Mensagem de erro."
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/getByIds": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "description": "Remoção de uma review de um livro.",
+        "parameters": [
+          {
+            "name": "idUser",
+            "description": "Id do usuário a ter a review buscada.",
+            "type": "integer",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "idBook",
+            "description": "Id do livro a ter sua review buscada.",
+            "type": "integer",
+            "required": true,
+            "in": "query"
           }
         ],
         "responses": {
@@ -1409,40 +1581,16 @@
                         "type": "string",
                         "example": "yyyy-MM-dd 00:00:00"
                       },
-                      "Book": {
+                      "User": {
                         "type": "object",
                         "properties": {
-                          "idBook": {
-                            "type": "number",
-                            "example": 0
-                          },
-                          "status": {
-                            "type": "number",
-                            "example": 0
-                          },
-                          "photo": {
-                            "type": "string",
-                            "example": "base64 ou null"
-                          },
                           "name": {
                             "type": "string",
                             "example": "nome"
                           },
-                          "author": {
+                          "nickname": {
                             "type": "string",
-                            "example": "autor"
-                          },
-                          "publisher": {
-                            "type": "string",
-                            "example": "editora"
-                          },
-                          "dateOfPublication": {
-                            "type": "string",
-                            "example": "yyyy-MM-dd"
-                          },
-                          "synopsis": {
-                            "type": "string",
-                            "example": "sinopse"
+                            "example": "apelido"
                           }
                         }
                       }
