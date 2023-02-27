@@ -70,7 +70,7 @@ async function getMostReviewed() {
         order: [
             ['status', 'DESC']
         ],
-        group: ['idBook']
+        group: ['Review.idBook']
     });
 
     return {
@@ -90,7 +90,7 @@ async function getBestReviewed() {
         order: [
             ['score', 'DESC']
         ],
-        group: ['idBook']
+        group: ['Review.idBook']
     });
     return {
         bookList: data
